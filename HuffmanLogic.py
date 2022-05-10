@@ -5,7 +5,7 @@ class HuffmanLogic:
     @staticmethod
     def encode(encode_table: dict[int, bitarray], content):
         result = bitarray()
-        #result.frombytes(len(content).to_bytes(4, "little"))
+        result.frombytes(len(content).to_bytes(4, "little"))
         for i in range(len(content)):
             current_byte = content[i:i + 1]
             current_int = int.from_bytes(current_byte, "little")
@@ -16,13 +16,23 @@ class HuffmanLogic:
 
     @staticmethod
     def decode(decode_table, encoded):
+        length = int.from_bytes(encoded[0:4], "little")
         temp_table = decode_table
         result = bytearray()
         ba = bitarray()
         ba.frombytes(encoded)
+        counter = 32
+        end_counter = 0
         for e in ba:
+            if counter > 0:
+                counter -= 1
+                continue
+
+            if end_counter == length:
+                return result
             temp_table = temp_table[e]
             if type(temp_table) is int:
+                end_counter += 1
                 result.append(temp_table)
                 temp_table = decode_table
         return result
