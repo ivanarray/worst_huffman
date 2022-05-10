@@ -1,9 +1,11 @@
 from bitarray import bitarray
 
-
 class HuffmanLogic:
+    """Класс внутренней логики кодирования"""
+
     @staticmethod
-    def encode(encode_table: dict[int, bitarray], content):
+    def encode(encode_table, content):
+        """Возвращает массив битов по таблице кодирования и содержимому"""
         result = bitarray()
         result.frombytes(len(content).to_bytes(4, "little"))
         for i in range(len(content)):
@@ -16,6 +18,7 @@ class HuffmanLogic:
 
     @staticmethod
     def decode(decode_table, encoded):
+        """возвращает содержимое по таблице декодинга и закодированному содержимому"""
         length = int.from_bytes(encoded[0:4], "little")
         temp_table = decode_table
         result = bytearray()

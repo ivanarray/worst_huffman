@@ -6,8 +6,11 @@ from HuffmanLogic import HuffmanLogic
 
 
 class HuffmanFileZipper:
+    """Основной функциональный класс для работы с файлами при сжатии/расжатии"""
+
     @staticmethod
     def zip_file(filename, key_path, output_path):
+        """Архивирует файл filename в output_path с ключом в key_path"""
         with open(filename, "rb") as f:
             content = f.read()
 
@@ -27,6 +30,7 @@ class HuffmanFileZipper:
 
     @staticmethod
     def unzip_file(filename, key_path, output_path):
+        """РазАрхивирует файл filename в output_path с ключом в key_path"""
         with open(key_path, "rb") as dt:
             decode_table = pickle.loads(dt.read())
 

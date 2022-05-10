@@ -1,6 +1,9 @@
 class ByteHelper:
+    """Облегчает работу с байтами, текстом"""
+
     @staticmethod
-    def get_frequency_table(text: bytes):
+    def get_frequency_table(text):
+        """Получить таблицу частоты встречаемости символов"""
         table = {}
         const = 1 / len(text)
         for i in range(256):
@@ -13,7 +16,9 @@ class ByteHelper:
         return table
 
     @staticmethod
-    def get_tree_from_freq_table(freq_table: dict[int, int]):
+    def get_tree_from_freq_table(freq_table):
+        """Возвращает отсортированное дерево частоты встречаемости символов. Структура дерева задана скобочной
+        последовательностью))"""
         freq_table = dict(sorted(freq_table.items(), key=lambda item: item[1]))
         while len(freq_table) > 1:
             iterator = iter(freq_table.items())

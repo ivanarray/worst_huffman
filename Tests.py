@@ -37,9 +37,18 @@ class TestHuffman(unittest.TestCase):
         self.assertEqual(expected, tree)
 
     def test_encode(self):
-        d = ByteHelper.get_frequency_table(b"0111")
-        t = ByteHelper.get_tree_from_freq_table(d)
-        e = {}
-        HuffmanLogic.get_encode_table(t, e, bitarray())
-        ba = HuffmanLogic.encode(e, b"0111")
-        self.assertEqual(ba, bitarray('000001000000000000000000000000000111'))
+        freq_t = ByteHelper.get_frequency_table(b"0111")
+        dec_tree = ByteHelper.get_tree_from_freq_table(freq_t)
+        en_t = {}
+        HuffmanLogic.get_encode_table(dec_tree, en_t, bitarray())
+        enc = HuffmanLogic.encode(en_t, b"0111")
+        self.assertEqual(enc, bitarray('000001000000000000000000000000000111'))
+
+    def test_decode(self):
+        freq_t = ByteHelper.get_frequency_table(b"0111")
+        dec_tree = ByteHelper.get_tree_from_freq_table(freq_t)
+        en_t = {}
+        HuffmanLogic.get_encode_table(dec_tree, en_t, bitarray())
+        enc = HuffmanLogic.encode(en_t, b"0111")
+        res = HuffmanLogic.decode(dec_tree, enc.tobytes())
+        self.assertEqual(res, b"0111")
