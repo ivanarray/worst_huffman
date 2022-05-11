@@ -1,4 +1,5 @@
 import unittest
+import os
 
 from bitarray import bitarray
 
@@ -8,6 +9,11 @@ from HuffmanLogic import HuffmanLogic
 
 
 class TestHuffman(unittest.TestCase):
+
+    def tearDown(self) -> None:
+        for path in ['./rtest.txt', './test.txt', './test.txthuff', './test.txtkey']:
+            if os.path.exists(path):
+                os.remove(path)
 
     def test_identical(self):
         filename = "test.txt"
@@ -28,10 +34,7 @@ class TestHuffman(unittest.TestCase):
         self.assertEqual(d[49], 0.75)
 
     def test_get_tree(self):
-        d = {}
-        d[0] = 0.25
-        d[1] = 0.25
-        d[2] = 0.5
+        d = {0: 0.25, 1: 0.25, 2: 0.5}
         tree = ByteHelper.get_tree_from_freq_table(d)
         expected = (2, (0, 1))
         self.assertEqual(expected, tree)

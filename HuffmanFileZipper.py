@@ -2,6 +2,7 @@ import pickle
 
 from bitarray import bitarray
 
+from ByteHelper import ByteHelper
 from HuffmanLogic import HuffmanLogic
 
 
@@ -14,7 +15,6 @@ class HuffmanFileZipper:
         with open(filename, "rb") as f:
             content = f.read()
 
-        from ByteHelper import ByteHelper
         freq_table = ByteHelper.get_frequency_table(content)
         decode_table = ByteHelper.get_tree_from_freq_table(freq_table)
         encode_table = {}
